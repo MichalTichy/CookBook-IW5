@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using CookBook.BL.Models;
 using CookBook.BL.Queries;
@@ -18,6 +19,10 @@ namespace CookBook.BL.Facades
             query = recipesQueryFactory;
         }
 
+        public RecipeDetailModel CreateNew()
+        {
+            return new RecipeDetailModel(){Id = Guid.Empty};
+        }
         public RecipeDetailModel GetRecipe(Guid id)
         {
             return recipeRepository.GetById(id);
@@ -47,9 +52,9 @@ namespace CookBook.BL.Facades
             recipeRepository.Remove(id);
         }
 
-        public IEnumerable<RecipeListModel> GetAllRecipes()
+        public ICollection<RecipeListModel> GetAllRecipes()
         {
-            return query.Execute();
+            return query.Execute().ToList();
         }
 
     }

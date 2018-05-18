@@ -1,35 +1,323 @@
-﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+﻿html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    vertical-align: baseline;
 }
 
-/* Wrapping element */
-/* Set some basic padding to keep content from hitting the edges */
-.body-content {
-    padding-left: 15px;
-    padding-right: 15px;
+html {
+    font-size: 62.5%;
+    height: 100%;
 }
 
-/* Carousel */
-.carousel-caption p {
-    font-size: 20px;
-    line-height: 1.4;
+body {
+    font-family: "Open Sans", sans-serif;
+    color: #231F20;
+    margin: 0;
+    background-color: #fcfcfc;
+    overflow-x: hidden !important;
+    box-sizing: border-box;
 }
 
-/* Make .svg files in the carousel display properly in older browsers */
-.carousel-inner .item img[src$=".svg"] {
+ol, ul {
+    list-style: none;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+caption, th, td {
+    text-align: left;
+    font-weight: normal;
+    vertical-align: middle;
+}
+
+q, blockquote {
+    quotes: none;
+}
+
+    q:before, q:after, blockquote:before, blockquote:after {
+        content: "";
+        content: none;
+    }
+
+a img {
+    border: none;
+}
+
+.element-to-middle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.text-strong {
+    font-weight: bold;
+}
+
+.text-to-center {
+    text-align: center !important;
+}
+
+.text-to-left {
+    text-align: left !important;
+}
+
+.text-to-right {
+    text-align: right !important;
+}
+
+.text-justify {
+    text-align: justify !important;
+}
+
+.nav-item-center {
+    white-space: nowrap;
+}
+
+@media only screen and (min-width: 769px) {
+    .nav-item-center {
+        display: inline-block;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+}
+
+.nav-item-right {
+    display: inline-block;
+    position: absolute;
+    top: 50%;
+    right: 2rem;
+    transform: translate(0, -50%);
+}
+
+@media only screen and (max-width: 768px) {
+    .nav-item-right {
+        position: relative;
+        top: unset;
+        right: unset;
+        transform: translate(0, 0);
+        margin-bottom: 2rem;
+    }
+}
+
+.nav-item-left {
+    display: inline-block;
+    position: absolute;
+    top: 50%;
+    left: 2rem;
+    transform: translate(0, -50%);
+}
+
+@media only screen and (max-width: 768px) {
+    .nav-item-left {
+        position: relative;
+        top: unset;
+        right: unset;
+        transform: translate(0, 0);
+        margin-bottom: 2rem;
+    }
+}
+a.button:hover {
+    color: #ffffff !important;
+}
+.button {
+    display: inline-block;
+    text-align: center;
+    padding: 1rem 0;
+}
+
+.clean-button {
+    padding: 0;
+    margin: 0;
+    height: auto;
+    display: inline-block !important;
+    float: none !important;
+}
+
+.section-add-new-recipe, .table-button, .save-button, .delete-button {
+    width: 100%;
+    border: none;
+    background-color: blue;
+    color: #fff;
+    padding: 1rem 0;
+    box-sizing: border-box;
+    transition: all 0.3s;
+}
+
+    .section-add-new-recipe:hover, .table-button:hover, .save-button:hover, .delete-button:hover {
+        background-color: #0000cc;
+        cursor: pointer;
+        transition: all 0.3s;
+    }
+
+.table-button, .save-button, .delete-button {
+    width: 10rem;
+}
+
+.delete-button {
+    background-color: #d91313;
+    transition: all 0.3s;
+}
+
+    .delete-button:hover {
+        background-color: #aa0f0f;
+        transition: all 0.3s;
+    }
+
+h1 {
+    font-size: 2.6rem;
+    font-family: "Open Sans", sans-serif;
+    font-weight: 300;
+}
+
+h2 {
+    font-size: 2.2rem;
+    font-family: "Open Sans", sans-serif;
+}
+
+h3 {
+    font-size: 1.8rem;
+    font-family: "Open Sans", sans-serif;
+}
+
+p, span, a {
+    font-size: 1.4rem;
+    font-family: "Open Sans", sans-serif;
+}
+
+.container {
+    width: 40%;
+    margin: 0 auto;
+    padding: 5rem 2rem;
+    box-sizing: border-box;
+}
+
+@media only screen and (min-width: 981px) {
+    .container {
+        min-width: 95rem;
+    }
+}
+
+@media only screen and (max-width: 980px) {
+    .container {
+        width: 100%;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .container {
+        padding: 3rem 2rem;
+        box-sizing: border-box;
+    }
+}
+
+section {
+    padding: 5rem 0;
+}
+
+@media only screen and (max-width: 980px) {
+    section {
+        padding: 3rem 0;
+    }
+}
+
+.root-grid table {
+    margin-top: 3rem;
     width: 100%;
 }
 
-/* QR code generator */
-#qrCode {
-    margin: 15px;
+.root-grid thead {
+    border-bottom: 0.2rem solid blue;
 }
 
-/* Hide/rearrange for smaller screens */
-@media screen and (max-width: 767px) {
-    /* Hide captions */
-    .carousel-caption {
-        display: none;
+    .root-grid thead tr th {
+        font-weight: bold;
     }
+
+        .root-grid thead tr th:first-child {
+            text-align: left;
+        }
+
+        .root-grid thead tr th:nth-child(2) {
+            text-align: center;
+        }
+
+        .root-grid thead tr th:last-child {
+            text-align: right;
+        }
+
+        .root-grid thead tr th span {
+            font-size: 1.6rem;
+            padding: 1rem .5rem;
+            box-sizing: border-box;
+        }
+
+.root-grid tbody tr:nth-child(even) {
+    background-color: #c7c7c7;
 }
+
+.root-grid tbody tr td {
+    padding: 1rem .5rem;
+    box-sizing: border-box;
+}
+
+    .root-grid tbody tr td:first-child {
+        text-align: left;
+    }
+
+    .root-grid tbody tr td:nth-child(2) {
+        text-align: center;
+    }
+
+        .root-grid tbody tr td:nth-child(2) span {
+            font-weight: bold;
+        }
+
+    .root-grid tbody tr td:last-child {
+        text-align: right;
+    }
+
+.detail-section .root-grid {
+    width: 60rem;
+    display: block;
+    margin: 0 auto;
+    border: 0.2rem solid blue;
+    padding: 1rem;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+    .detail-section .root-grid .action-buttons-section {
+        margin-bottom: 1rem;
+    }
+
+    .detail-section .root-grid > div:not(.action-buttons-section), .detail-section .root-grid > input, .detail-section .root-grid > select {
+        float: left;
+        width: 50%;
+        display: block;
+        height: 2.8rem;
+        margin-bottom: .5rem;
+        line-height: 2.6rem;
+    }
+
+    .detail-section .root-grid > div {
+        font-weight: bold;
+    }

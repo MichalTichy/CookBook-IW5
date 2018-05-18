@@ -18,4 +18,8 @@
     <ProjectReference Include="..\CookBook.DAL\CookBook.DAL.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\images\" />
+  </ItemGroup>
+
 </Project>

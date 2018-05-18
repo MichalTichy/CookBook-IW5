@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using CookBook.BL.Facades;
 using CookBook.BL.Models;
@@ -35,6 +36,7 @@ namespace CookBook.WEB
             services.AddTransient<GetAllRecipesQuery>();
             services.AddTransient<RecipeRepository>();
             services.AddTransient<RecipeFacade>();
+            services.AddTransient<Func<CookBookDbContext>>(provider => provider.GetService<CookBookDbContext>);
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -53,14 +55,10 @@ namespace CookBook.WEB
 
             app.UseMvc(routes =>
             {
-                routes.MapRoute(
-                    name: "recipes",
-                    template: "",
-                    defaults: new { controller = "Recipes",  action="Recipes"});
-                routes.MapRoute(
-                    name: "recipeDetail",
-                    template: "recipe/{id}",
-                    defaults: new { controller = "RecipeDetail",  action="RecipeDetail", id=Guid.Empty});
+                routes.MapRoute("Recipes", "{controller=Recipes}/{action=Index}");
+                routes.MapRoute("RecipeNew","Recipes/New",defaults:new { controller = "Recipes", action = "Detail"});
+                routes.MapRoute("RecipeDetail", "Recipes/Detail/{id:guid}", defaults: new { controller = "Recipes", action = "Detail" });
+                routes.MapRoute("RecipeDelete", "Recipes/Delete/{id:guid}", defaults: new { controller = "Recipes", action = "Delete" });
             });
         }
     }

@@ -12,10 +12,16 @@ namespace CookBook.BL.Repositories
 {
     public class RecipeRepository
     {
+        protected readonly Func<CookBookDbContext> dbContextFactory;
         private readonly RecipeMapper mapper = new RecipeMapper();
+
+        public RecipeRepository(Func<CookBookDbContext> dbContextFactory)
+        {
+            this.dbContextFactory = dbContextFactory;
+        }
         internal RecipeDetailModel FindByName(string name)
         {
-            using (var cookBookDbContext = new CookBookDbContext())
+            using (var cookBookDbContext = dbContextFactory())
             {
                 var recipe = cookBookDbContext
                     .Recipes
@@ -27,11 +33,9 @@ namespace CookBook.BL.Repositories
 
         internal RecipeDetailModel GetById(Guid id)
         {
-            using (var cookBookDbContext = new CookBookDbContext())
+            using (var cookBookDbContext = dbContextFactory())
             {
-                var recipeEntity = cookBookDbContext.Recipes
-                    .Include(r => r.Ingredients.Select(i => i.Ingredient))
-                    .FirstOrDefault(r => r.Id == id);
+                var recipeEntity = cookBookDbContext.Find<RecipeEntity>(id);
 
                 return mapper.MapEntityToDetailModel(recipeEntity);
             }
@@ -40,7 +44,7 @@ namespace CookBook.BL.Repositories
 
         internal RecipeDetailModel Insert(RecipeDetailModel detail)
         {
-            using (var cookBookDbContext = new CookBookDbContext())
+            using (var cookBookDbContext = dbContextFactory())
             {
                 var entity = mapper.MapDetailModelToEntity(detail);
                 entity.Id = Guid.NewGuid();
@@ -54,7 +58,7 @@ namespace CookBook.BL.Repositories
 
         internal void Update(RecipeDetailModel detail)
         {
-            using (var cookBookDbContext = new CookBookDbContext())
+            using (var cookBookDbContext = dbContextFactory())
             {
                 var entity = cookBookDbContext.Recipes.First(r => r.Id == detail.Id);
 
@@ -69,7 +73,7 @@ namespace CookBook.BL.Repositories
 
         internal void Remove(Guid id)
         {
-            using (var cookBookDbContext = new CookBookDbContext())
+            using (var cookBookDbContext = dbContextFactory())
             {
                 var entity = new RecipeEntity() { Id = id };
                 cookBookDbContext.Recipes.Attach(entity);
