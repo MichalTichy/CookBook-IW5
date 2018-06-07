@@ -37,7 +37,9 @@ namespace CookBook.BL.Repositories
             {
                 var recipeEntity = cookBookDbContext.Find<RecipeEntity>(id);
 
-                return mapper.MapEntityToDetailModel(recipeEntity);
+                return recipeEntity!=null ? 
+                    mapper.MapEntityToDetailModel(recipeEntity)
+                    : null;
             }
         }
 

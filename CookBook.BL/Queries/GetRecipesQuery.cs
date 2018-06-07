@@ -21,9 +21,9 @@ namespace CookBook.BL.Queries
 
         internal ICollection<RecipeListModel> Execute()
         {
-            using (var context=dbContextFactory())
+            using (var context = dbContextFactory())
             {
-                return context.Set<RecipeEntity>().Select(r => mapper.MapEntityToListModel(r)).ToList();
+                return context.Set<RecipeEntity>().Select(mapper.MapEntityToListModel).ToList();
             }
         }
 

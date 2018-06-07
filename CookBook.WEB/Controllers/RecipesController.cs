@@ -20,41 +20,52 @@ namespace CookBook.WEB.Controllers
         {
             this.recipeFacade = recipeFacade;
         }
-        
+
+        [HttpGet]
         public ViewResult Index()
         {
             var recipes = recipeFacade.GetAllRecipes();
             return View(recipes);
         }
         
+        [HttpGet]
         public IActionResult Detail(Guid? id)
         {
             if (!id.HasValue)
+            {
                 return View(recipeFacade.CreateNew());
+            }
 
             var recipe = recipeFacade.GetRecipe(id.Value);
 
             if (recipe == null)
+            {
                 return NotFound();
+            }
 
             return View(recipe);
         }
         
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Save([Bind("Name,Type,Description,Duration,Id")] RecipeDetailModel recipeEntity)
+        public IActionResult Save([Bind("Name,Type,Description,Duration,Id")] RecipeDetailModel recipe)
         {
             if (!ModelState.IsValid)
-                return View("Detail", recipeEntity);
+            {
+                return View("Detail", recipe);
+            }
 
-            var savedRecipe = recipeFacade.Save(recipeEntity);
+            var savedRecipe = recipeFacade.Save(recipe);
             return RedirectToAction(nameof(Index));
         }
-        
+
+        [HttpGet]
         public IActionResult Delete(Guid? id)
         {
             if (!id.HasValue)
+            {
                 return NotFound();
+            }
 
             var recipe = recipeFacade.GetRecipe(id.Value);
             return View(recipe);
@@ -66,11 +77,6 @@ namespace CookBook.WEB.Controllers
         {
             recipeFacade.Remove(id);
             return RedirectToAction(nameof(Index));
-        }
-
-        private bool RecipeEntityExists(Guid id)
-        {
-            return recipeFacade.GetRecipe(id) != null;
         }
     }
 }

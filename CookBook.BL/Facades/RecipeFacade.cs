@@ -13,10 +13,10 @@ namespace CookBook.BL.Facades
         private readonly RecipeRepository recipeRepository;
         private readonly GetAllRecipesQuery query;
 
-        public RecipeFacade(RecipeRepository recipeRepository, GetAllRecipesQuery recipesQueryFactory)
+        public RecipeFacade(RecipeRepository recipeRepository, GetAllRecipesQuery query)
         {
             this.recipeRepository = recipeRepository;
-            query = recipesQueryFactory;
+            this.query = query;
         }
 
         public RecipeDetailModel CreateNew()
@@ -27,7 +27,6 @@ namespace CookBook.BL.Facades
         {
             return recipeRepository.GetById(id);
         }
-
 
         public RecipeDetailModel GetRecipe(string name)
         {
@@ -54,7 +53,7 @@ namespace CookBook.BL.Facades
 
         public ICollection<RecipeListModel> GetAllRecipes()
         {
-            return query.Execute().ToList();
+            return query.Execute();
         }
 
     }
